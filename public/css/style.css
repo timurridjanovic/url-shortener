@@ -1,0 +1,130 @@
+html, body {
+	height: 98%;
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
+	background: #FFFFFF;
+	font-weight:normal !important;
+	/*-mozilla-text-shadow: -1px -1px 0 rgba(255,255,255,0.6);*/
+	text-shadow: -1px -1px 0 rgba(255,255,255,0.6);
+	color: #444857;
+	opacity:0.99;
+}
+
+canvas {
+	border: 1px solid black;
+	margin-bottom: 30px;
+}
+
+
+
+.container {
+	margin: 0 auto;
+	width: 960px;
+  	min-height: 96%; 
+	height: auto !important;
+	height: 96%;
+    text-align: center;
+}
+
+.top {
+	padding-top: 20px;
+}
+
+h1 {
+	letter-spacing: 5px;
+	font-size: 40px;
+	line-height: 40px;
+	margin-bottom: 20px;
+	color: #444857;
+}
+
+
+#canvas {
+	float: left;
+}
+
+.heart {
+	color: red;
+}
+
+.box {
+    padding-top: 30px;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.box2 {
+	display: inline-block;
+	position: absolute;
+    margin-top: 40px;
+    margin-left: 10px;
+
+}
+
+input[type=text], input[type=password] {
+	background-color: #ffffff;
+  	border: 1px solid #cccccc;
+  	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  	-webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+     	-moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+       	-o-transition: border linear 0.2s, box-shadow linear 0.2s;
+        transition: border linear 0.2s, box-shadow linear 0.2s;
+    	border: 2px solid #dadada;
+    	height: 150px;
+	width: 300px;
+	display: inline;
+  	height: 25px;
+  	padding: 4px 6px;
+  	font-size: 14px;
+  	line-height: 20px;
+  	color: #555555;
+  	vertical-align: middle;
+  	-webkit-border-radius: 4px;
+     	-moz-border-radius: 4px;
+        border-radius: 4px;
+    margin: 0 auto;    
+}
+
+form {
+    margin: 0 auto;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+	outline: none;
+    	border-color: #9ecaed;
+    	box-shadow: 0 0 10px #9ecaed;
+}
+
+.btn.shortener {
+	background-color: #444857;
+	color: white;
+	font-size: 15px;
+	padding: 10px 20px;
+	cursor: pointer;
+	border: none;
+	width: 100px;
+	border-radius: 5px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.urlError {
+    color: red;
+    display: inline;
+}
+
+.footer {
+    border-style: solid;
+    border-top-width: 1px;
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+	padding-bottom: 0px;
+}
+
