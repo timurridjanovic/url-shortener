@@ -5,11 +5,10 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var url = require('url');
-var validateUrl = require('./public/js/bitly-clone');
+var Bitly = require('./public/js/bitly-clone');
 
 var app = express();
 //added
@@ -42,7 +41,8 @@ app.get('/', routes.index);
 //post requests
 app.post('/', function(req, res) {
     var url = req.body.shortener;
-    validateUrl(url, req, res);
+    var bitlyClone = new Bitly(url, req, res);
+    bitlyClone.validateUrl();
 });
 
 
