@@ -1,7 +1,11 @@
+
+
+
 var Bitly = function(url, req, res) {
     this.url = url;
     this.req = req;
     this.res = res;
+    this.connection();
 }
 
 Bitly.prototype = {
@@ -11,7 +15,7 @@ Bitly.prototype = {
         
         if (regex.test(this.url)) {
             var url = this.shorten(this.url);
-            this.redirect(url);
+            //this.redirect(url);
             
         }
         else {
@@ -38,6 +42,25 @@ Bitly.prototype = {
 
     redirect: function(url) {
         this.res.redirect(url);
+    },
+    
+    connection: function () {
+        var MongoClient = require('mongodb').MongoClient;
+        MongoClient.connect('mongodb://localhost:3000/test', function(err, db) {
+            if (err) throw err;
+    
+            //Find one document in our collection
+            db.collection('coll').findOne({}, function(err, doc) {
+                if (err) throw err;
+            
+                console.dir(doc);
+                
+                db.close();
+            });
+        
+            console.dir("Called findOne!");
+        });
+
     }
 };
 
