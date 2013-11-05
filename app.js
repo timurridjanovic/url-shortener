@@ -8,7 +8,13 @@ var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 var url = require('url');
+
+//Mongo stuff
+var MongoClient = require('mongodb').MongoClient;
+
+//bitly-clone import
 var Bitly = require('./public/js/bitly-clone');
+
 
 var app = express();
 //added
@@ -35,18 +41,26 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-//get requests
-app.get('/', routes.index);
 
-//post requests
-app.post('/', function(req, res) {
-    var url = req.body.shortener;
-    var bitlyClone = new Bitly(url, req, res);
-    bitlyClone.validateUrl();
-});
+MongoClient.connect('mongodb://localhost:27017/test', function (err, db) {
+    if (err) throw err;
+    
+    //get requests
+    app.get('/', routes.index);
+
+    //post requests
+    app.post('/', function(req, res) {
+        var url = req.body.shortener;
+        var bitlyClone = new Bitly(url, req, res, db);
+        bitlyClone.validateUrl();
+    
+    });
+            
+    http.createServer(app).listen(app.get('port'), function(){
+        console.log('Express server listening on port ' + app.get('port'));
+    }); 
+}); 
+
+   
 
 
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
