@@ -45,15 +45,29 @@ if ('development' == app.get('env')) {
 MongoClient.connect('mongodb://localhost:27017/test', function (err, db) {
     if (err) throw err;
     
-    //get requests
+    //get and post requests for index
     app.get('/', routes.index);
 
-    //post requests
     app.post('/', function(req, res) {
         var url = req.body.shortener;
         var bitlyClone = new Bitly(url, req, res, db);
         bitlyClone.validateUrl();
-    
+    });    
+        
+    //get and post requests for shortenedUrls    
+    app.get('/[a-zA-Z0-9]+', function(req, res) {
+        var pathname = url.parse(req.url).pathname;
+        db.collection('test').findOne({shortenedUrl: pathname}, function(err, doc) {
+            if (err) throw err;
+            if (doc) {
+                res.redirect(doc.url);
+            }
+            else {
+                console.log('lol');
+                res.writeHead(200, {"Content-type": "text/plain"});
+                res.end("Lol 404");
+            }
+        }); 
     });
             
     http.createServer(app).listen(app.get('port'), function(){

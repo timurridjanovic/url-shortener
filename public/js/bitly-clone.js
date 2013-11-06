@@ -23,38 +23,31 @@ Bitly.prototype = {
     },
 
     shorten: function(url) {
-        this.urlDict = {};
         var timer = new Date().getTime();
         timer = timer%10000000;
         
-        //need to add timer to ID
         var counter = 1;
-        
         //adding counter to database (incrementing)
-        var found = this.find('test', {counter: {$gt:0}});
-        console.log('yo', found);
-        if (found) {
-            console.log('found: ', found);
-            var newDoc = {counter: counter++};
-            //this.update('test', found, newDoc);
-        }
-        else {
-            var doc = {counter: counter};
-            this.insert('test', doc);
-        }
-        
-        var id = "" + timer + counter;
-        id = parseInt(id).toString(32);
-               
-        var shortenedUrl = '/' + id;
-        this.urlDict[shortenedUrl] = url;
-        
-        //adding shortenedUrl and url to database
-        var doc = {shortenedUrl: shortenedUrl, url: url};
-        this.insert('test', doc);
-        
-        return shortenedUrl;
-        
+        this.find('test', {counter: {$gt:0}}, function(found) {
+            if (found) {
+                counter = found.counter+1;
+                var newDoc = {counter: counter};
+                this.update('test', found, newDoc);
+            }
+            else {
+                var newDoc = {counter: counter};
+                this.insert('test', newDoc);
+            }
+            var id = "" + timer + counter;
+            id = parseInt(id).toString(32);
+            var shortenedUrl = '/' + id;
+           
+            var urlDoc = {shortenedUrl: shortenedUrl, url: this.url};
+            this.insert('test', urlDoc);
+            
+            this.res.render('index', {shortenedUrl: 'http://localhost:3000' + shortenedUrl});
+            
+        }.bind(this));
     },
 
     redirect: function(url) {
@@ -67,19 +60,15 @@ Bitly.prototype = {
             if (err) throw err;
         
             console.dir("Successfully inserted: " + JSON.stringify(inserted));
-        
-            return inserted;
         });
     },
     
-    find: function(collection, query) {
+    find: function(collection, query, callback) {
+        var theDoc = null;
         this.db.collection(collection).findOne(query, function(err, doc) {
             if (err) throw err;
-            console.log(doc.counter);
-            
-            return doc
+            callback(doc)
         });
-        console.log('yeah', doc);
     },
     
     update: function(collection, doc, newDoc) {
