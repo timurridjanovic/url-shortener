@@ -42,7 +42,7 @@ if ('development' == app.get('env')) {
 }
 
 
-MongoClient.connect('mongodb://localhost:27017/test', function (err, db) {
+MongoClient.connect('mongodb://Timur:t0241422@ds053688.mongolab.com:53688/heroku_app19229370', function (err, db) {
     if (err) throw err;
     
     //get and post requests for index

@@ -1,3 +1,4 @@
+var DOMAIN = 'http://bitly-cloned.herokuapp.com'
 
 var Bitly = function(url, req, res, db) {
     this.url = url;
@@ -45,7 +46,7 @@ Bitly.prototype = {
             var urlDoc = {shortenedUrl: shortenedUrl, url: this.url};
             this.insert('test', urlDoc);
             
-            this.res.render('index', {shortenedUrl: 'http://localhost:3000' + shortenedUrl});
+            this.res.render('index', {shortenedUrl: DOMAIN + shortenedUrl});
             
         }.bind(this));
     },
