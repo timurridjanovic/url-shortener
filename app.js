@@ -11,11 +11,9 @@ var url = require('url');
 
 //Mongo stuff
 var MongoClient = require('mongodb').MongoClient;
-<<<<<<< HEAD
+
 //var CONNECTION = 'mongodb://Timur:t0241422@ds053688.mongolab.com:53688/heroku_app19229370'
 var CONNECTION = 'mongodb://localhost:27017/test'
-=======
->>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
 
 //bitly-clone import
 var Bitly = require('./public/js/bitly-clone');
@@ -47,16 +45,11 @@ if ('development' == app.get('env')) {
 }
 
 
-<<<<<<< HEAD
 MongoClient.connect(CONNECTION, function (err, db) {
-=======
-MongoClient.connect('mongodb://localhost:27017/test', function (err, db) {
->>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
     if (err) throw err;
     
     //get and post requests for index
     app.get('/', routes.index);
-<<<<<<< HEAD
     
     app.post('/ajax', function(req, res) {
         var url = req.body.name;
@@ -134,30 +127,6 @@ MongoClient.connect('mongodb://localhost:27017/test', function (err, db) {
     });
     
 
-=======
-
-    app.post('/', function(req, res) {
-        var url = req.body.shortener;
-        var bitlyClone = new Bitly(url, req, res, db);
-        bitlyClone.validateUrl();
-    });    
-        
-    //get and post requests for shortenedUrls    
-    app.get('/[a-zA-Z0-9]+', function(req, res) {
-        var pathname = url.parse(req.url).pathname;
-        db.collection('test').findOne({shortenedUrl: pathname}, function(err, doc) {
-            if (err) throw err;
-            if (doc) {
-                res.redirect(doc.url);
-            }
-            else {
-                console.log('lol');
-                res.writeHead(200, {"Content-type": "text/plain"});
-                res.end("Lol 404");
-            }
-        }); 
-    });
->>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
             
     http.createServer(app).listen(app.get('port'), function(){
         console.log('Express server listening on port ' + app.get('port'));

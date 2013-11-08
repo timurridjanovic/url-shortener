@@ -1,9 +1,8 @@
-<<<<<<< HEAD
+
 //mongo ds053688.mongolab.com:53688/heroku_app19229370 -u Timur -p
 //var DOMAIN = 'http://bitly-cloned.herokuapp.com'
 var DOMAIN = 'http://localhost:3000'
-=======
->>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
+
 
 var Bitly = function(url, req, res, db) {
     this.url = url;
@@ -23,11 +22,7 @@ Bitly.prototype = {
         }
         else {
             var error = "Please enter a valid URL";
-<<<<<<< HEAD
             this.res.send(error)
-=======
-            this.res.render('index', {error:error});
->>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
         }
         
     },
@@ -51,18 +46,11 @@ Bitly.prototype = {
             var id = "" + timer + counter;
             id = parseInt(id).toString(32);
             var shortenedUrl = '/' + id;
-           
-<<<<<<< HEAD
+
             var urlDoc = {shortenedUrl: shortenedUrl, url: this.url, totalClicks: 0, clicksPerDate: []};
             this.insert('test', urlDoc);
             
             this.res.send(DOMAIN + shortenedUrl);
-=======
-            var urlDoc = {shortenedUrl: shortenedUrl, url: this.url};
-            this.insert('test', urlDoc);
-            
-            this.res.render('index', {shortenedUrl: 'http://localhost:3000' + shortenedUrl});
->>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
             
         }.bind(this));
     },
@@ -95,7 +83,6 @@ Bitly.prototype = {
             console.log("update succeeded: ", data);
         });
     },
-<<<<<<< HEAD
     
     createDate: function(date) {
         var createdDate = null;
@@ -116,8 +103,6 @@ Bitly.prototype = {
         console.log(createdDate);
         return createdDate;
     }
-=======
->>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
 };
 
 module.exports = Bitly;

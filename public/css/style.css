@@ -34,15 +34,14 @@ canvas {
 	padding-top: 20px;
 }
 
-<<<<<<< HEAD
+
 .totalClicks {
     text-align: left;
     margin-left: 40px;
     margin-top: -50px;
 }
 
-=======
->>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
+
 h1 {
 	letter-spacing: 5px;
 	font-size: 40px;
@@ -128,14 +127,11 @@ input[type=text]:focus, input[type=password]:focus {
     display: inline;
 }
 
-<<<<<<< HEAD
 a.shortenedUrl {
     color: inherit;
     text-decoration: none;
 }
 
-=======
->>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
 .footer {
     border-style: solid;
     border-top-width: 1px;
@@ -145,7 +141,6 @@ a.shortenedUrl {
 	padding-bottom: 0px;
 }
 
-<<<<<<< HEAD
 /*d3*/
 
 /* tell the SVG path to be a thin blue line without any area fill */
@@ -176,6 +171,3 @@ path {
     stroke: #000;
 }
 
-
-=======
->>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
