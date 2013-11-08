@@ -12,8 +12,8 @@ var url = require('url');
 //Mongo stuff
 var MongoClient = require('mongodb').MongoClient;
 
-//var CONNECTION = 'mongodb://Timur:mongolabiscool1234@ds053688.mongolab.com:53688/heroku_app19229370'
-var CONNECTION = 'mongodb://localhost:27017/test'
+var CONNECTION = 'mongodb://Timur:mongolabiscool1234@ds053688.mongolab.com:53688/heroku_app19229370'
+//var CONNECTION = 'mongodb://localhost:27017/test'
 
 //bitly-clone import
 var Bitly = require('./public/js/bitly-clone');
@@ -116,7 +116,6 @@ MongoClient.connect(CONNECTION, function (err, db) {
                 }
                 var dateRange = found.clicksPerDate;
                 console.log(dateRange);
-                //res.send(dateRange);
                 res.render('stats', {clicks: clicks, dateRange: JSON.stringify(dateRange)}); 
             }
             else {

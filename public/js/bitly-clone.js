@@ -1,7 +1,7 @@
 
 //mongo ds053688.mongolab.com:53688/heroku_app19229370 -u Timur -p
-//var DOMAIN = 'http://bitly-cloned.herokuapp.com'
-var DOMAIN = 'http://localhost:3000'
+var DOMAIN = 'http://bitly-cloned.herokuapp.com'
+//var DOMAIN = 'http://localhost:3000'
 
 
 var Bitly = function(url, req, res, db) {
