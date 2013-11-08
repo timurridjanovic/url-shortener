@@ -12,7 +12,7 @@ var url = require('url');
 //Mongo stuff
 var MongoClient = require('mongodb').MongoClient;
 
-//var CONNECTION = 'mongodb://Timur:t0241422@ds053688.mongolab.com:53688/heroku_app19229370'
+//var CONNECTION = 'mongodb://Timur:mongolabiscool1234@ds053688.mongolab.com:53688/heroku_app19229370'
 var CONNECTION = 'mongodb://localhost:27017/test'
 
 //bitly-clone import
