@@ -33,6 +33,7 @@
 		    
             for (var i = 0; i < clicksPerDate.length; i++) {
                 var date = new Date(clicksPerDate[i].date);
+                date.setDate(date.getDate() + 1);
                 date.setHours(0, 0, 0, 0);
                 var clicks = clicksPerDate[i].clicks;
                 console.log(date, clicks);
