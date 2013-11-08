@@ -9,7 +9,11 @@
     "express": "3.4.3",
     "swig": "*",
     "mongodb": "*",
+<<<<<<< HEAD
     "consolidate": "*",
     "d3":"*"
+=======
+    "consolidate": "*"
+>>>>>>> 1c4ab3dd403092724473ee4d9de76a40d5b12d27
   }
 }
