@@ -3,22 +3,23 @@
 	<head>
 		<title>Bitly Clone</title>
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<div class="container top">
 		    <div class="box">
-                <form method="post">
+                <form method="post" id="shortenForm">
                             <input type="text" placeholder="Paste a link to shorten it" name="shortener"/>
-                            <input type="submit" value="Shorten" class="btn shortener"/>
+                            <input type="submit" value="Shorten" id="shortenButton" class="btn shortener"/>
                             
                 </form>
 		    </div>  
 		    <div class="box2">
-		        <div class="urlError">{{error}}</div> 
+		        <div class="urlError"></div> 
 		    </div>
 		    
 		    <center><h1>Bitly Clone</h1></center>
-		    <center><a href = {{shortenedUrl}}>{{shortenedUrl}}</a><center>
+		    <center><a href="#" class="shortenedUrl" target="_blank"></a><center>
 		</div>    
 
 		<footer class="footer">
@@ -27,6 +28,32 @@
 			</div>
 		</footer>	
 	
-	
+		<script type="text/javascript">
+		    $("#shortenForm").submit(function() {
+		        console.log('worked');
+		        var formData = $(this);
+		        var urlToShorten = formData.find("input[name='shortener']").val();
+		        $.ajax({
+		            type: "POST",
+		            url: "/ajax",
+		            data: {name: urlToShorten},
+		            success: function(data) {
+		                if (data == "Please enter a valid URL") {
+		                    $(".urlError").html(data);
+		                    $(".shortenedUrl").html('');
+		                }
+		                else {
+		                    $(".urlError").html('');
+		                    $(".shortenedUrl").attr("href", function() {
+		                       return data;
+		                    });
+		                    $(".shortenedUrl").html(data);
+		                }    
+		            }
+		        }); 
+		        return false;
+		        
+		    });
+		</script>
 	</body>
 </html>

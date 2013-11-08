@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bitly Clone</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="container top">
+		    <div class="box">
+		        <center><h1>Bitly Clone Stats Page</h1></center>
+                <div id="graph" class="aGraph"></div>
+		    </div>  
+		    <div class="totalClicks"><h3>Total clicks: {{clicks}}</h3></div>
+
+		</div>    
+
+		<footer class="footer">
+			<div class="container">
+				<center><p>made with <span class="heart">&hearts;</span> by Timur Ridjanovic <a href="https://github.com/timurridjanovic/interactive-resume" target="_blank">source @ github</a></p></center>
+			</div>
+		</footer>	
+	
+		<script type="text/javascript">
+            var clicksPerDate = ("{{dateRange}}").replace(/&quot;/g, '"');
+            clicksPerDate = JSON.parse(clicksPerDate);
+            
+            // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
+		    var data = [];
+		    var dataX = [];
+		    var dataY = [];
+		    
+            for (var i = 0; i < clicksPerDate.length; i++) {
+                var date = new Date(clicksPerDate[i].date);
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                var clicks = clicksPerDate[i].clicks;
+                console.log(date, clicks, month, day);
+                var tmpObj = {};
+                tmpObj.date = date;
+                tmpObj.clicks = clicks;
+                tmpObj.text = '' + clicks + date;
+                data.push(tmpObj);
+                dataY.push(clicks);
+                dataX.push(date);
+                
+            }
+    
+            var maxClicks = Math.max.apply(Math, dataY);
+            
+            var minDate = dataX[0];
+            var maxDate = dataX[dataX.length - 1];
+		
+		    // define dimensions of graph
+		    var m = [80, 80, 80, 80]; // margins
+		    var w = 1000 - m[1] - m[3]; // width
+		    var h = 400 - m[0] - m[2]; // height
+		
+     
+		    // X scale will fit all values from data[] within pixels 0-w
+		    var x = d3.time.scale().domain([minDate, maxDate]).range([0, w]);
+		    // Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
+		    var y = d3.scale.linear().domain([0, maxClicks]).range([h, 0]);
+
+     
+		    // create a line function that can convert data[] into x and y points
+		    var line = d3.svg.line()
+			    // assign the X function to plot our line as we wish
+			    .x(function(d) { 
+				    // verbose logging to show what's actually being done
+				    console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
+				    // return the X coordinate where we want to plot this datapoint
+				    return x(d['date']); 
+			    })
+			    .y(function(d) { 
+				    // verbose logging to show what's actually being done
+				    console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
+				    // return the Y coordinate where we want to plot this datapoint
+				    return y(d['clicks']); 
+			    })
+     
+			    // Add an SVG element with the desired dimensions and margin.
+			    var graph = d3.select("#graph").append("svg:svg")
+			          .attr("width", w + m[1] + m[3])
+			          .attr("height", h + m[0] + m[2])
+			          .append("svg:g")
+			          .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+     
+			    // create yAxis
+			    var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
+			    // Add the x-axis.
+			    graph.append("svg:g")
+			          .attr("class", "x axis")
+			          .attr("transform", "translate(0," + h + ")")
+			          .call(xAxis);
+     
+     
+			    // create left yAxis
+			    var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left");
+			    // Add the y-axis to the left
+			    graph.append("svg:g")
+			          .attr("class", "y axis")
+			          .attr("transform", "translate(-25,0)")
+			          .call(yAxisLeft);
+			          
+                // Add the line by appending an svg:path element with the data line we created above
+                // do this AFTER the axes above so that the line is above the tick-lines
+                graph.append("svg:path").attr("d", line(data));
+
+                graph.selectAll('circle.mark').data(data).enter().append('svg:circle')
+                    .attr('class', 'mark')
+                    .attr('cx', function(d) {return x(d['date']);})
+                    .attr('cy', function(d) {return y(d['clicks']);})
+                    .attr('r', 3.5);
+                    
+            
+		</script>
+	</body>
+</html>

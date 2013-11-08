@@ -1,4 +1,6 @@
-var DOMAIN = 'http://bitly-cloned.herokuapp.com'
+//mongo ds053688.mongolab.com:53688/heroku_app19229370 -u Timur -p
+//var DOMAIN = 'http://bitly-cloned.herokuapp.com'
+var DOMAIN = 'http://localhost:3000'
 
 var Bitly = function(url, req, res, db) {
     this.url = url;
@@ -18,7 +20,7 @@ Bitly.prototype = {
         }
         else {
             var error = "Please enter a valid URL";
-            this.res.render('index', {error:error});
+            this.res.send(error)
         }
         
     },
@@ -43,10 +45,10 @@ Bitly.prototype = {
             id = parseInt(id).toString(32);
             var shortenedUrl = '/' + id;
            
-            var urlDoc = {shortenedUrl: shortenedUrl, url: this.url};
+            var urlDoc = {shortenedUrl: shortenedUrl, url: this.url, totalClicks: 0, clicksPerDate: []};
             this.insert('test', urlDoc);
             
-            this.res.render('index', {shortenedUrl: DOMAIN + shortenedUrl});
+            this.res.send(DOMAIN + shortenedUrl);
             
         }.bind(this));
     },
@@ -79,6 +81,26 @@ Bitly.prototype = {
             console.log("update succeeded: ", data);
         });
     },
+    
+    createDate: function(date) {
+        var createdDate = null;
+        if (date === 'today') {
+            createdDate = new Date();
+            createdDate.setHours(0, 0, 0, 0);
+        }
+        else if (date === 'yesterday') {
+            createdDate = new Date();
+            createdDate.setDate(createdDate.getDate() - 1);
+            createdDate.setHours(0, 0, 0, 0);
+        }
+        else if (date === 'tomorrow') {
+            createdDate = new Date();
+            createdDate.setDate(createdDate.getDate() + 1);
+            createdDate.setHours(0, 0, 0, 0);
+        }
+        console.log(createdDate);
+        return createdDate;
+    }
 };
 
 module.exports = Bitly;
